@@ -208,7 +208,13 @@ cmake_dependent_option(SDLIMAGE_WEBP_SHARED "Dynamically load WEBP support (requ
     ${SDLIMAGE_DEPS_SHARED} SDLIMAGE_WEBP OFF)
 
 if(SDLIMAGE_PNG_LIBPNG AND SDLIMAGE_PNG_VENDORED)
-    set(SDLIMAGE_ZLIB ON)
+    #
+    # use Android-provided zlib
+    # do not use SDL_image/external/zlib
+    #
+    # this prevents random libz.so from being built and included in layout
+    #
+    set(SDLIMAGE_ZLIB OFF)
 else()
     set(SDLIMAGE_ZLIB OFF)
 endif()
